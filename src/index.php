@@ -1,4 +1,6 @@
-
+<?php 
+session_start();
+session_destroy(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,9 +24,9 @@
 
 	<div class="container">
 		<h3 align="center">Mitgliederverwaltung Studiengremien</h3>
-		<form action="formActions/registerForm.php" method="post"
+		<form action="formActions/loginForm.php" method="post"
 			class="form-signin">
-			<h2 class="form-signin-heading">Registrieren</h2>
+			<h2 class="form-signin-heading">Login</h2>
 			<label for="inputEmail" class="sr-only">Email-Addresse</label> <input
 				type="email" id="inputEmail" name="inputEmail" class="form-control"
 				placeholder="Email" required autofocus> <label
@@ -36,10 +38,10 @@
 					Remember me
 				</label>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Neu
-				registrieren</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Anmelden</button>
 			<h4 align="center">oder</h4>
-			<a href="index.html" class="btn btn-lg btn-primary btn-block">Anmelden</a>
+			<a href="register.html" class="btn btn-lg btn-primary btn-block">Neu
+				registrieren</a>
 		</form>
 	</div>
 	<!-- /container -->
