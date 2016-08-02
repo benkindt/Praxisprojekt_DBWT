@@ -1,0 +1,1 @@
+<?php echo "Willkommen! Sie sind eingeloggt!"; ?>
