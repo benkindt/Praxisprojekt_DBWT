@@ -1,6 +1,5 @@
-
-- [ ] Crucial Functions
-	- [ ] create ui with sidebar navigation
+    - [ ] Crucial Functions
+    - [ ] create ui with sidebar navigation
     - [ ] list all persons etc. in a html-table
     - [ ] add a person etc.
     - [ ] change an existing person etc. by clicking on it in the listing
