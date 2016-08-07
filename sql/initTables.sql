@@ -1,9 +1,17 @@
+CREATE EXTENSION citext;
+CREATE EXTENSION pgcrypto;
+
 ﻿CREATE TABLE users (
    id serial primary key,
    email citext UNIQUE NOT NULL,
    password text NOT NULL,
    admin boolean NOT NULL
 );
+
+INSERT INTO users (email, password, admin)
+VALUES ('email@email.com', crypt('thatisthepw', gen_salt('md5')), true);
+
+SELECT password = crypt('thatisthepw', password) FROM users;
 
 CREATE TABLE person (
    pid serial primary key,
@@ -12,6 +20,9 @@ CREATE TABLE person (
    nutzerkennzeichen text,
    matrikelnummer int
 );
+
+INSERT INTO person (vorname, nachname, nutzerkennzeichen, matrikelnummer)
+VALUES ('Peter', 'Pan', 'ppan', 234123);
 
 CREATE TABLE fachschaft (
    fid serial primary key,
