@@ -16,7 +16,7 @@ if (isset ( $_SESSION [$userId] )) {
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	
 	// user=' + $user + ';password=' + $pass + ';');
-	$query = "INSERT INTO users (email, password) VALUES (?, crypt(?, gen_salt('md5')));";
+	$query = "INSERT INTO users (email, password, admin) VALUES (?, crypt(?, gen_salt('md5')), true);";
 	$STH = $conn->prepare ( $query );
 	
 	$STH->bindParam ( 1, $email );

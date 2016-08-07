@@ -1,6 +1,7 @@
-<?php 
-session_start();
-session_destroy(); ?>
+<?php
+session_start ();
+session_destroy ();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,18 +30,20 @@ session_destroy(); ?>
 			<h2 class="form-signin-heading">Login</h2>
 			<label for="inputEmail" class="sr-only">Email-Addresse</label> <input
 				type="email" id="inputEmail" name="inputEmail" class="form-control"
-				placeholder="Email" required autofocus> <label
-				for="inputPassword" class="sr-only">Passwort</label> <input
-				type="password" id="inputPassword" name="inputPassword"
-				class="form-control" placeholder="Passwort" required>
+				placeholder="Email" required autofocus> <label for="inputPassword"
+				class="sr-only">Passwort</label> <input type="password"
+				id="inputPassword" name="inputPassword" class="form-control"
+				placeholder="Passwort" required>
 			<div class="checkbox" style="display: none;">
-				<label> <input type="checkbox" value="remember-me">
-					Remember me
+				<label> <input type="checkbox" value="remember-me"> Remember me
 				</label>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Anmelden</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">
+				<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;Anmelden
+			</button>
 			<h4 align="center">oder</h4>
-			<a href="register.html" class="btn btn-lg btn-primary btn-block">Neu
+			<a href="register.html" class="btn btn-lg btn-primary btn-block"><span
+				class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;Neu
 				registrieren</a>
 		</form>
 	</div>

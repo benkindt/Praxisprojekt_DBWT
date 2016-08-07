@@ -1,11 +1,28 @@
+<script>
+ 	$(document).ready(function(){
+		$("li").click(function(  ) {
+			var dataValue = $(this).attr("data-value");
+			if(!!dataValue){
+				var urlString = "/praxisprojekt_dbwt/src/userArea/lists/" + dataValue;
+				$("#right-top").load(urlString); onclick="loadList('gremien.php')"
+			}
+			$("li").removeClass("active");
+			$(this).addClass("active");
+		});
+	});
+</script>
+
 <ul class="list-group nav nav-sidebar">
-	<li class="active"><a href="#">Übersicht <span
+	<li class="active"><a
+		href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/overview.php');">Übersicht <span
 			class="sr-only">(current)</span></a></li>
-			<li><a href="#">Suchfunktion</a></li>
-			<br> &nbsp;&nbsp;
-	<b>Listen</b> <!-- use php to count(*) rows in tables -->
-	<li><a href="#"><span class="badge" style="margin-right:7px;">14</span>Personen</a></li>
-	<li><a href="#"><span class="badge" style="margin-right:7px;">14</span>Gremien</a></li>
-	<li><a href="#"><span class="badge" style="margin-right:7px;">14</span>Fachschaften</a></li>
-	<li><a href="#"><span class="badge" style="margin-right:7px;">14</span>Wahlperioden</a></li>
+	<li><a href="#"
+		onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/search.php');">Suchfunktion</a></li>
+	<br> &nbsp;&nbsp;
+	<b>Listen</b>
+	<!-- use php to count(*) rows in tables -->
+	<li data-value="person"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Personen</a></li>
+	<li data-value="gremien"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Gremien</a></li>
+	<li data-value="fachschaft"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Fachschaften</a></li>
+	<li data-value="wahlperiode"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Wahlperioden</a></li>
 </ul>
