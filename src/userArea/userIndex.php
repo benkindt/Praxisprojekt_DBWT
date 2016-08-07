@@ -19,7 +19,6 @@ session_start ();
 <!-- Placed at the end of the document so the pages load faster -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap core CSS -->
@@ -31,6 +30,10 @@ session_start ();
 <!-- <script src="../../lib/jquery-3.1.0.min.js"></script> -->
 
 <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
 <?php
 $userId = "userIdabcd135";
