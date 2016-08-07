@@ -1,4 +1,4 @@
-    - [ ] Crucial Functions
+- [ ] Crucial Functions
     - [ ] create ui with sidebar navigation
     - [ ] list all persons etc. in a html-table
     - [ ] add a person etc.
