@@ -1,4 +1,8 @@
-# Praxisprojekt Datenbanken & Webtechniken
-Benjamin Kindt
-Betreuer: Prof. Dr. Wolfgang Benn, Johannes Fliege
-SS2016
+SS 2016
+TU Chemnitz
+Praxisprojekt Datenbanken & Webtechniken
+====================
+
+This project uses mainly HTML, jQuery, Bootstrap and PHP.
+
+![Screenshot](screenshot.png "Screenshot")
