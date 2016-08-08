@@ -8,11 +8,14 @@ if (isset ( $_SESSION [$userId] )) {
 	$dbpass = "test1342";
 	
 	$name = $_POST ["name"];
-
+	
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	
-	// user=' + $user + ';password=' + $pass + ';');
-	$query = "INSERT INTO fachschaft (name) VALUES (?);";
+	if ($_GET ['fid']) {
+		$query = "UPDATE fachschaft SET name = ? WHERE fid = " . $_GET ['fid'] . ";";
+	} else {
+		$query = "INSERT INTO fachschaft (name) VALUES (?);";
+	}
 	$STH = $conn->prepare ( $query );
 	
 	$STH->bindParam ( 1, $name );
@@ -22,7 +25,7 @@ if (isset ( $_SESSION [$userId] )) {
 		echo "<br>Success!";
 	} else {
 		echo $query;
-		echo "<br>FAILED!";
+		echo "<br>FAILED! maybe this name already exists!";
 	}
 }
 

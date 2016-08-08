@@ -27,7 +27,7 @@ class Gremium {
 				<td scope="row">' . $this->gid . '</th>
 				<td>' . $this->name . '</td>
 				<td>' . $this->beschreibung . '</td>
-				<td><a href="editGremium.php?gid=' . $this->gid . '">edit</a></td>
+				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/userArea/forms/gremienUpdateForm.php?gid=' . $this->gid . '&#39;);" href="#">edit</a></td>
 			</tr>';
 	}
 }
@@ -66,14 +66,14 @@ if (isset ( $_SESSION [$userId] )) {
 ?>
 
 <script>
-$(document).ready(function() {
+// $(document).ready(function() {
 
-    $('#gremiumTable tr').click(function() {
-        var href = $(this).find("a").attr("href");
-        if(href) {
-            window.location = href;
-        }
-    });
+//     $('#gremiumTable tr').click(function() {
+//         var href = $(this).find("a").attr("href");
+//         if(href) {
+//             window.location = href;
+//         }
+//     });
 
-});
+// });
 </script>

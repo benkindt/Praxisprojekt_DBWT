@@ -13,7 +13,7 @@
 <br>
 
 <div id="formContainer" style="width: 45%;">
-	<form action="/praxisprojekt_dbwt/src/userArea/process/addGremium.php"
+	<form action="/praxisprojekt_dbwt/src/formActions/addGremium.php"
 		method="post" class="form">
 		<label for="name">Name</label> <input type="text" id="name"
 			name="name" class="form-control" placeholder="Bezeichnung" required
@@ -22,8 +22,8 @@
 		<label for="beschreibung">Nachname</label> <input type="text"
 			id="beschreibung" name="beschreibung" class="form-control"
 			placeholder="Beschreibung" required>
-		<!--  -->
+		<!--  --><br>
 		<button class="btn btn-lg btn-primary btn-block submitForm"
-			type="submit">&nbsp;&nbsp;anlegen</button>
+			type="submit">&nbsp;&nbsp;anlegen </button>
 	</form>
 </div>

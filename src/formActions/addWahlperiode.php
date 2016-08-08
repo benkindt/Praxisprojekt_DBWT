@@ -10,11 +10,13 @@ if (isset ( $_SESSION [$userId] )) {
 	$von = $_POST ["von"];
 	$bis = $_POST ["bis"];
 	
-	echo $von . " / " . $bis;
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	
-	// user=' + $user + ';password=' + $pass + ';');
-	$query = "INSERT INTO wahlperiode (von, bis) VALUES (?, ?);";
+	if ($_GET ['wid']) {
+		$query = "UPDATE wahlperiode SET von = ? , bis = ? WHERE wid = " . $_GET ['wid'] . ";";
+	} else {
+		$query = "INSERT INTO wahlperiode (von, bis) VALUES (?, ?);";
+	}
 	$STH = $conn->prepare ( $query );
 	
 	$STH->bindParam ( 1, $von );

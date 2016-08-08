@@ -27,7 +27,7 @@ class Wahlperiode {
 				<td scope="row">' . $this->wid . '</th>
 				<td>' . $this->von . '</td>
 				<td>' . $this->bis . '</td>
-				<td><a href="editWahlperiode.php?wid=' . $this->wid . '">edit</a></td>
+				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/userArea/forms/wahlperiodeUpdateForm.php?wid=' . $this->wid . '&#39);" href="#w">edit</a></td>
 			</tr>';
 	}
 }

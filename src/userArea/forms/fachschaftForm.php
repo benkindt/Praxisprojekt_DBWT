@@ -8,12 +8,12 @@
 <br>
 
 <div id="formContainer" style="width: 45%;">
-	<form action="/praxisprojekt_dbwt/src/userArea/process/addFachschaft.php"
+	<form action="/praxisprojekt_dbwt/src/formActions/addFachschaft.php"
 		method="post" class="form">
 		<label for="name">Name</label> <input type="text" id="name"
 			name="name" class="form-control" placeholder="Bezeichnung" required
 			autofocus>
-		<!--  -->
+		<!--  --><br>
 		<button class="btn btn-lg btn-primary btn-block submitForm"
 			type="submit">&nbsp;&nbsp;anlegen</button>
 	</form>

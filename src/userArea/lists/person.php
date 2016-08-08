@@ -31,7 +31,7 @@ class Person {
 				<td>' . $this->nachname . '</td>
 				<td>' . $this->nutzerkennzeichen . '</td>
 				<td>' . $this->matrikelnummer . '</td>
-				<td><a href="editPerson.php?pid=' . $this->pid . '">edit</a></td>
+				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/userArea/forms/personUpdateForm.php?pid=' . $this->pid . '&#39;);" href="#">edit</a></td>
 			</tr>';
 	}
 }

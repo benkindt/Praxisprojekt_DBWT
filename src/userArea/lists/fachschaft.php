@@ -25,8 +25,11 @@ class Fachschaft {
 		echo '<tr>
 				<td scope="row">' . $this->fid . '</th>
 				<td>' . $this->name . '</td>
-				<td><a href="editFachschaft.php?fid=' . $this->fid . '">edit</a></td>
+				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/userArea/forms/fachschaftUpdateForm.php?fid=' . $this->fid . '&#39);" href="#">edit</a></td>
 			</tr>';
+	}
+	public function name(){
+		echo $this->name;
 	}
 }
 

@@ -1,4 +1,4 @@
-<h2 class="sub-header">Neue Person anlegen</h2>
+<h2 class="sub-header">Person editieren</h2>
 <a href="#"
 	onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/personForm.php');"><span
 	class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Person
@@ -10,30 +10,52 @@
 	aller Personen</a>
 <br>
 <br>
-
+<?php
+session_start ();
+$userId = "userIdabcd135";
+if (isset ( $_SESSION [$userId] )) {
+	if ($_GET ['pid']) {
+		$host = "localhost";
+		$db = "dbwt";
+		$dbuser = "dbuser";
+		$dbpass = "test1342";
+		
+		$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
+		$query = "SELECT * FROM person WHERE pid = " . $_GET ['pid'] . ";";
+		$STH = $conn->prepare ( $query );
+		
+		$STH->execute ();
+		$STH->setFetchMode ( PDO::FETCH_CLASS, 'Gremium' );
+		$person = $STH->fetch ();
+		echo "ID: " . $person[0] . "<br><br>";
+	} else {
+		echo "No PID found!";
+	}
+} else {
+	echo "Not logged in!";
+}
+?>
 <div id="formContainer" style="width: 45%;">
-	<form action="/praxisprojekt_dbwt/src/formActions/addPerson.php"
+	<form action="/praxisprojekt_dbwt/src/formActions/addPerson.php?pid=<?php echo $_GET ['pid']; ?>"
 		method="post" class="form">
 		<label for="inputEmail">Vorname</label> <input type="text"
 			id="vorname" name="vorname" class="form-control"
-			placeholder="Vorname" required autofocus>
+			placeholder="Vorname" required autofocus value="<?php echo $person[1]; ?>">
 		<!--  -->
 		<label for="inputPassword">Nachname</label> <input type="text"
 			id="nachname" name="nachname" class="form-control"
-			placeholder="Nachname" required>
+			placeholder="Nachname" required value="<?php echo $person[2]; ?>">
 		<!--  -->
 		<label for="inputPassword">Nutzerkennzeichen</label> <input
 			type="text" id="nutzerkennzeichen" name="nutzerkennzeichen"
-			class="form-control" placeholder="Nutzerkennzeichen">
+			class="form-control" placeholder="Nutzerkennzeichen" value="<?php echo $person[3]; ?>">
 		<!--  -->
 		<label for="inputPassword">Matrikelnummer</label> <input type="text"
 			id="matrikelnummer" name="matrikelnummer" class="form-control"
-			placeholder="Matrikelnummer">
+			placeholder="Matrikelnummer" value="<?php echo $person[4]; ?>">
 		<!--  --><br><br>
 		<button class="btn btn-lg btn-primary btn-block submitForm"
-			type="submit">&nbsp;&nbsp;anlegen</button>
-		<a href="#" class="btn btn-primary btn-block">&nbsp;&nbsp;weitere
-			Person</a>
+			type="submit">&nbsp;&nbsp;ändern</button>
 	</form>
 </div>
 
