@@ -9,6 +9,12 @@
 			$("li").removeClass("active");
 			$(this).addClass("active");
 		});
+		
+		$('div[data-badge]').each(function() {
+			console.log("item!");
+			console.log("#" + $(this).attr("data-badge") + "Badge");
+		    $("#" + $(this).attr("data-badge") + "Badge").html($(this).html());
+		});
 	});
 </script>
 
@@ -21,8 +27,8 @@
 	<br> &nbsp;&nbsp;
 	<b>Listen</b>
 	<!-- use php to count(*) rows in tables -->
-	<li data-value="person"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Personen</a></li>
-	<li data-value="gremien"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Gremien</a></li>
-	<li data-value="fachschaft"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Fachschaften</a></li>
-	<li data-value="wahlperiode"><a href="#"><span class="badge" style="margin-right: 7px;">14</span>Wahlperioden</a></li>
+	<li data-value="person"><a href="#"><span class="badge" id="personBadge" style="margin-right: 7px;"></span>Personen</a></li>
+	<li data-value="gremien"><a href="#"><span class="badge" id="gremiumBadge" style="margin-right: 7px;"></span>Gremien</a></li>
+	<li data-value="fachschaft"><a href="#"><span class="badge" id="fachschaftBadge" style="margin-right: 7px;"></span>Fachschaften</a></li>
+	<li data-value="wahlperiode"><a href="#"><span class="badge" id="wahlperiodeBadge" style="margin-right: 7px;"></span>Wahlperioden</a></li>
 </ul>

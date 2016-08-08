@@ -1,17 +1,57 @@
 <h2 class="sub-header">Liste aller Fachschaften</h2>
-<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Fachschaft hinzufügen</a>
+<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Fachschaft
+	hinzufügen</a>
+<br>
+<a href="#"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Gremien</a>
+<br>
+<br>
 
-<br>
-<br>
-<div id="formContainer" style="width: 45%;">
-	<form action="/praxisprojekt_dbwt/src/userArea/process/addFachschaft.php"
-		method="post" class="form">
-		<h2 class="sub-header">Neue Fachschaft anlegen</h2>
-		<label for="name">Name</label> <input type="text" id="name"
-			name="name" class="form-control" placeholder="Bezeichnung" required
-			autofocus>
-		<!--  -->
-		<button class="btn btn-lg btn-primary btn-block submitForm"
-			type="submit">&nbsp;&nbsp;anlegen</button>
-	</form>
-</div>
+<?php
+session_start ();
+class Fachschaft {
+	private $fid;
+	private $name;
+	public function __construct() {
+		$this->tell ();
+	}
+	public function tell() {
+		echo '<tr>
+				<th scope="row">' . $this->fid . '</th>
+				<td>' . $this->name . '</td>
+				<td>edit</td>
+			</tr>';
+	}
+}
+
+$userId = "userIdabcd135";
+if (isset ( $_SESSION [$userId] )) {
+	$host = "localhost";
+	$db = "dbwt";
+	$dbuser = "dbuser";
+	$dbpass = "test1342";
+	
+	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
+	
+	// user=' + $user + ';password=' + $pass + ';');
+	$query = "SELECT * FROM fachschaft ORDER BY fid;";
+	$STH = $conn->prepare ( $query );
+	
+	$STH->execute ();
+	echo '<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+			<th></th>
+			</tr>
+		</thead>
+		<tbody>';
+	$STH->setFetchMode ( PDO::FETCH_CLASS, 'Fachschaft' );
+	while ( ($STH->fetch ( PDO::FETCH_CLASS )) !== false ) {
+		$gremium = $STH->fetch ();
+	}
+	echo '</tbody>
+	</table>';
+}
+?>

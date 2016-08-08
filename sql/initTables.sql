@@ -79,6 +79,22 @@ CREATE TABLE fachschaftsmitglied (
 
 ----
 
+SELECT  (
+        SELECT COUNT(*)
+        FROM   person
+        ) AS personCount,
+        (
+        SELECT COUNT(*)
+        FROM   gremium
+        ) AS gremiumCount,
+		(
+        SELECT COUNT(*)
+        FROM   fachschaft
+        ) AS fachschaftCount,
+		(
+        SELECT COUNT(*)
+        FROM   wahlperiode
+        ) AS wahlperiodeCount ;
 
 CREATE TABLE person (
    pid serial primary key,

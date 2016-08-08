@@ -35,7 +35,7 @@ session_start ();
 	href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
-<?php
+// <?php
 $userId = "userIdabcd135";
 if (isset ( $_SESSION [$userId] )) {
 	echo '<script>
@@ -62,6 +62,55 @@ if (isset ( $_SESSION [$userId] )) {
 			<div id="sidebar" class="col-sm-3 col-md-2 sidebar"></div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<div id="right-top"></div>
+				<?php
+				class Badge {
+					private $personcount;
+					private $gremiumcount;
+					private $fachschaftcount;
+					private $wahlperiodecount;
+					public function __construct() {
+						$this->tell ();
+					}
+					public function tell() {
+						echo '<div data-badge="person" style="display:none;">' . $this->personcount . '</div>';
+						echo '<div data-badge="gremium" style="display:none;">' . $this->gremiumcount . '</div>';
+						echo '<div data-badge="fachschaft" style="display:none;">' . $this->fachschaftcount . '</div>';
+						echo '<div data-badge="wahlperiode" style="display:none;">' . $this->wahlperiodecount . '</div>';
+					}
+				}
+				
+				$userId = "userIdabcd135";
+				if (isset ( $_SESSION [$userId] )) {
+					$host = "localhost";
+					$db = "dbwt";
+					$dbuser = "dbuser";
+					$dbpass = "test1342";
+					
+					$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
+					
+					$query = "SELECT  (
+        SELECT COUNT(*)
+        FROM   person
+        ) AS personcount,
+        (
+        SELECT COUNT(*)
+        FROM   gremium
+        ) AS gremiumcount,
+		(
+        SELECT COUNT(*)
+        FROM   fachschaft
+        ) AS fachschaftcount,
+		(
+        SELECT COUNT(*)
+        FROM   wahlperiode
+        ) AS wahlperiodecount;";
+					$STH = $conn->prepare ( $query );
+					
+					$STH->execute ();
+					$STH->setFetchMode ( PDO::FETCH_CLASS, 'Badge' );
+					$badge = $STH->fetch ();
+				}
+				?>				
 			</div>
 		</div>
 

@@ -1,91 +1,66 @@
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>jQuery UI Datepicker - Default functionality</title>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<h2 class="sub-header">Liste aller Personen</h2>
+<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Person
+	hinzufügen</a>
+<br>
+<a href="#"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Personen</a>
+<br>
+<br>
 
-</head>
-<body>
-	<h2 class="sub-header">Liste aller Personen</h2>
-	<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Person
-		hinzufügen</a>
-	<br><br>
-	<table class="table table-striped">
+<?php
+session_start ();
+class Person {
+	private $pid;
+	private $vorname;
+	private $nachname;
+	private $nutzerkennzeichen;
+	private $matrikelnummer;
+	public function __construct() {
+		$this->tell ();
+	}
+	public function tell() {
+		echo '<tr>
+				<th scope="row">' . $this->pid . '</th>
+				<td>' . $this->vorname . '</td>
+				<td>' . $this->nachname . '</td>
+				<td>' . $this->nutzerkennzeichen . '</td>
+				<td>' . $this->matrikelnummer . '</td>
+				<td>edit</td>
+			</tr>';
+	}
+}
+
+$userId = "userIdabcd135";
+if (isset ( $_SESSION [$userId] )) {
+	$host = "localhost";
+	$db = "dbwt";
+	$dbuser = "dbuser";
+	$dbpass = "test1342";
+	
+	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
+	
+	// user=' + $user + ';password=' + $pass + ';');
+	$query = "SELECT * FROM person ORDER BY pid;";
+	$STH = $conn->prepare ( $query );
+	
+	$STH->execute ();
+	echo '<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Username</th>
+				<th>ID</th>
+				<th>Vorname</th>
+				<th>Nachname</th>
+				<th>Nutzerkennzeichen</th>
+				<th>Matrikelnummer</th>
+				<th></th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>Jacob</td>
-				<td>Thornton</td>
-				<td>@fat</td>
-			</tr>
-			<tr>
-				<th scope="row">3</th>
-				<td>Larry</td>
-				<td>the Bird</td>
-				<td>@twitter</td>
-			</tr>
-		</tbody>
-	</table>
-	<br>
-	<div id="formContainer" style="width: 45%;">
-		<form action="/praxisprojekt_dbwt/src/userArea/process/addPerson.php"
-			method="post" class="form">
-			<h2 class="sub-header">Neue Person anlegen</h2>
-			<label for="inputEmail">Vorname</label> <input type="text"
-				id="vorname" name="vorname" class="form-control"
-				placeholder="Vorname" required autofocus>
-			<!--  -->
-			<label for="inputPassword">Nachname</label> <input type="text"
-				id="nachname" name="nachname" class="form-control"
-				placeholder="Nachname" required>
-			<!--  -->
-			<label for="inputPassword">Nutzerkennzeichen</label> <input
-				type="text" id="nutzerkennzeichen" name="nutzerkennzeichen"
-				class="form-control" placeholder="Nutzerkennzeichen">
-			<!--  -->
-			<label for="inputPassword">Matrikelnummer</label> <input type="text"
-				id="matrikelnummer" name="matrikelnummer" class="form-control"
-				placeholder="Matrikelnummer">
-			<!--  -->
-			<button class="btn btn-lg btn-primary btn-block submitForm"
-				type="submit">&nbsp;&nbsp;anlegen</button>
-			<a href="#" class="btn btn-primary btn-block">&nbsp;&nbsp;weitere
-				Person</a>
-		</form>
-	</div>
-	<p>
-		Date: <input type="text" class="datepickers">
-	</p>
-	<script>
-	$(function() {
-		$(".datepickers").each(function(){
-			if(!$(this).hasClass('hasDatepicker')){
-				console.log("has not datepicker!");
-				$(this).datepicker({
-					dateFormat : "dd.mm.yy"
-				});
-			}
-		});
-	});
-</script>
-
-</body>
-</html>
+		<tbody>';
+	$STH->setFetchMode ( PDO::FETCH_CLASS, 'Person' );
+	while ( ($STH->fetch ( PDO::FETCH_CLASS )) !== false ) {
+		$gremium = $STH->fetch ();
+	}
+	echo '</tbody>
+	</table>';
+}
+?>
