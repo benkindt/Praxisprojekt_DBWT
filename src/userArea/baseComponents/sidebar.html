@@ -1,15 +1,18 @@
 <script>
  	$(document).ready(function(){
 		$("li").click(function(  ) {
+			// computes the urlString for the sidebar item
+			// new content is loaded to right-top-div without refreshing the whole page
 			var dataValue = $(this).attr("data-value");
 			if(!!dataValue){
 				var urlString = "/praxisprojekt_dbwt/src/userArea/lists/" + dataValue;
 				$("#right-top").load(urlString);
 			}
+			// set active class to clicked sidebar item
 			$("li").removeClass("active");
 			$(this).addClass("active");
 		});
-		
+		// get the count of the specific sidebar item from the divs html
 		$('div[data-badge]').each(function() {
 			console.log("item!");
 			console.log("#" + $(this).attr("data-badge") + "Badge");

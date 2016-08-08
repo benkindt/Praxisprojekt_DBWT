@@ -14,29 +14,21 @@ session_start ();
 
 <title>Mitgliederverwaltung</title>
 
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap core CSS -->
 <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
 <link href="../../css/dashboard.css" rel="stylesheet">
-
-<!-- <script src="../../lib/jquery-3.1.0.min.js"></script> -->
-
-<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
-
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
-// <?php
+<?php
 $userId = "userIdabcd135";
+// in order to have a cleaner index-backend the main parts are loaded with jquery load()-function
+// later content will be loaded to the right-top-div, this is again done with jquery load()-function
+// this results in no real page reloads as only right-top-div is changed
+// the sidebar and navbar will always remain untouched, see sidebar.html for more details on implementation
 if (isset ( $_SESSION [$userId] )) {
 	echo '<script>
     $(function(){
@@ -63,6 +55,7 @@ if (isset ( $_SESSION [$userId] )) {
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<div id="right-top"></div>
 				<?php
+				// queries how many elements are in the db, later the numbers in the resulting divs will be processed
 				class Badge {
 					private $personcount;
 					private $gremiumcount;

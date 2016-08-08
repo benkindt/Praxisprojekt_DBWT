@@ -19,7 +19,7 @@
 			name="name" class="form-control" placeholder="Bezeichnung" required
 			autofocus>
 		<!--  -->
-		<label for="beschreibung">Nachname</label> <input type="text"
+		<label for="beschreibung">Beschreibung</label> <input type="text"
 			id="beschreibung" name="beschreibung" class="form-control"
 			placeholder="Beschreibung" required>
 		<!--  --><br>
