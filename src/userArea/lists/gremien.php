@@ -1,14 +1,18 @@
 <style>
-#gremiumTable td:hover {
-	cursor: pointer;
-}
+/* #gremiumTable td:hover { */
+/* 	cursor: pointer; */
+/* } */
 </style>
 
 <h2 class="sub-header">Liste aller Gremien</h2>
-<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/gremienForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Gremium
+<a href="#"
+	onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/gremienForm.php');"><span
+	class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Gremium
 	hinzufügen</a>
 <br>
-<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/gremien.php');"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+<a href="#"
+	onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/gremien.php');"><span
+	class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
 	aller Gremien</a>
 <br>
 <br>
@@ -65,15 +69,13 @@ if (isset ( $_SESSION [$userId] )) {
 }
 ?>
 
-<script>
+<!-- <script> 
 // $(document).ready(function() {
 
-//     $('#gremiumTable tr').click(function() {
-//         var href = $(this).find("a").attr("href");
-//         if(href) {
-//             window.location = href;
-//         }
-//     });
-
+// $('#gremiumTable tr').click(function() { 
+// var onclick = $(this).find("a").attr("onclick");
+// $(this).find("a").attr("href", "javascript:" + onclick;
 // });
-</script>
+
+// }); 
+</script> -->

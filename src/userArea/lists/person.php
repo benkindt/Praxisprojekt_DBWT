@@ -1,7 +1,7 @@
 <style>
-#personTable td:hover {
-    cursor: pointer;
-}
+/* #personTable td:hover { */
+/*     cursor: pointer; */
+/* } */
 </style>
 
 <h2 class="sub-header">Liste aller Personen</h2>
@@ -70,15 +70,15 @@ if (isset ( $_SESSION [$userId] )) {
 	</table>';
 }
 ?>
-<script>
-$(document).ready(function() {
+<!-- <script>
+// $(document).ready(function() {
 
-    $('#personTable tr').click(function() {
-        var href = $(this).find("a").attr("href");
-        if(href) {
-            window.location = href;
-        }
-    });
+//     $('#personTable tr').click(function() {
+//         var href = $(this).find("a").attr("href");
+//         if(href) {
+//             window.location = href;
+//         }
+//     });
 
-});
-</script>
+// });
+</script> -->

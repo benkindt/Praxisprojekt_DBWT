@@ -37,9 +37,9 @@
 	</form>
 </div>
 
-<p>
-	Date: <input type="text" class="datepickers">
-</p>
+<!-- <p> -->
+<!-- 	Date: <input type="text" class="datepickers"> -->
+<!-- </p> -->
 <script>
 	$(function() {
 		$(".datepickers").each(function(){

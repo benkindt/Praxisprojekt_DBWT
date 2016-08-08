@@ -1,7 +1,7 @@
 <style>
-#wahlperiodeTable td:hover {
-	cursor: pointer;
-}
+/* #wahlperiodeTable td:hover { */
+/* 	cursor: pointer; */
+/* } */
 </style>
 
 <h2 class="sub-header">Liste aller Wahlperioden</h2>
@@ -66,15 +66,15 @@ if (isset ( $_SESSION [$userId] )) {
 ?>
 
 <script>
-$(document).ready(function() {
+// $(document).ready(function() {
 
-    $('#wahlperiodeTable tr').click(function() {
-        var href = $(this).find("a").attr("href");
-        if(href) {
-            window.location = href;
-        }
-    });
+//     $('#wahlperiodeTable tr').click(function() {
+//         var href = $(this).find("a").attr("href");
+//         if(href) {
+//             window.location = href;
+//         }
+//     });
 
-});
+// });
 </script>
 
