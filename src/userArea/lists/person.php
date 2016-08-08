@@ -1,8 +1,14 @@
+<style>
+#personTable td:hover {
+    cursor: pointer;
+}
+</style>
+
 <h2 class="sub-header">Liste aller Personen</h2>
-<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Person
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/personForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Person
 	hinzufügen</a>
 <br>
-<a href="#"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/person.php');"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
 	aller Personen</a>
 <br>
 <br>
@@ -20,12 +26,12 @@ class Person {
 	}
 	public function tell() {
 		echo '<tr>
-				<th scope="row">' . $this->pid . '</th>
+				<td scope="row">' . $this->pid . '</th>
 				<td>' . $this->vorname . '</td>
 				<td>' . $this->nachname . '</td>
 				<td>' . $this->nutzerkennzeichen . '</td>
 				<td>' . $this->matrikelnummer . '</td>
-				<td>edit</td>
+				<td><a href="editPerson.php?pid=' . $this->pid . '">edit</a></td>
 			</tr>';
 	}
 }
@@ -44,7 +50,7 @@ if (isset ( $_SESSION [$userId] )) {
 	$STH = $conn->prepare ( $query );
 	
 	$STH->execute ();
-	echo '<table class="table table-striped">
+	echo '<table id="personTable" class="table table-striped table-hover" style="hover">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -64,3 +70,15 @@ if (isset ( $_SESSION [$userId] )) {
 	</table>';
 }
 ?>
+<script>
+$(document).ready(function() {
+
+    $('#personTable tr').click(function() {
+        var href = $(this).find("a").attr("href");
+        if(href) {
+            window.location = href;
+        }
+    });
+
+});
+</script>

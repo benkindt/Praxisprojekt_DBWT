@@ -24,5 +24,7 @@ zum Anzeigen, Erstellen und Editieren von:
 	<li data-value="wahlperiode"><a href="#">Wahlperioden</a></li>
 	<li>sowie eine <a href="#"
 		onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/search.php');">Suchfunktion</a></li>
-</ul>
+</ul><br>
 Wobei zum Erstellen und Editieren Administratorrechte notwendig sind.
+<br>
+Falls Administratorrechte vorliegen, ist dies hinter der Email-Adresse in der rechten oberen Ecke sichtbar.

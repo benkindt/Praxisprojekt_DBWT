@@ -1,7 +1,15 @@
+<h2 class="sub-header">Neue Fachschaft anlegen</h2>
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/fachschaftForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Fachschaft
+	hinzufügen</a>
+<br>
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/fachschaft.php');"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Fachschaften</a>
+<br>
+<br>
+
 <div id="formContainer" style="width: 45%;">
 	<form action="/praxisprojekt_dbwt/src/userArea/process/addFachschaft.php"
 		method="post" class="form">
-		<h2 class="sub-header">Neue Fachschaft anlegen</h2>
 		<label for="name">Name</label> <input type="text" id="name"
 			name="name" class="form-control" placeholder="Bezeichnung" required
 			autofocus>

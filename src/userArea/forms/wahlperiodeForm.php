@@ -1,10 +1,18 @@
+<h2 class="sub-header">Neue Wahlperiode anlegen</h2>
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/wahlperiodeForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Wahlperiode
+	hinzufügen</a>
+<br>
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/wahlperiode.php');"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Wahlperioden</a>
+<br>
+<br>
+
 <input type="text" id="bvs" name="bvs"
 			class="datepickers">
 <div id="formContainer" style="width: 45%;">
 	<form
 		action="/praxisprojekt_dbwt/src/userArea/process/addWahlperiode.php"
 		method="post" class="form">
-		<h2 class="sub-header">Neue Wahlperiode anlegen</h2>
 		<label for="von">von</label> <input type="text" id="von" name="von"
 			class="datepickers">
 		<!--  -->

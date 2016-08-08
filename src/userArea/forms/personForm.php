@@ -1,7 +1,19 @@
+<h2 class="sub-header">Neue Person anlegen</h2>
+<a href="#"
+	onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/personForm.php');"><span
+	class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Person
+	hinzufügen</a>
+<br>
+<a href="#"
+	onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/person.php');"><span
+	class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Personen</a>
+<br>
+<br>
+
 <div id="formContainer" style="width: 45%;">
 	<form action="/praxisprojekt_dbwt/src/userArea/process/addPerson.php"
 		method="post" class="form">
-		<h2 class="sub-header">Neue Person anlegen</h2>
 		<label for="inputEmail">Vorname</label> <input type="text"
 			id="vorname" name="vorname" class="form-control"
 			placeholder="Vorname" required autofocus>

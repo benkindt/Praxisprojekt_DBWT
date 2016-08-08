@@ -1,11 +1,17 @@
+<style>
+#wahlperiodeTable td:hover {
+	cursor: pointer;
+}
+</style>
 
 <h2 class="sub-header">Liste aller Wahlperioden</h2>
-<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Wahlperiode
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/wahlperiodeForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Wahlperiode
 	hinzufügen</a>
 <br>
-	<a href="#"><span class="glyphicon glyphicon-th-list"
-		aria-hidden="true">&nbsp;</span>Liste aller Wahlperioden</a>
-	<br><br>
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/wahlperiode.php');"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Wahlperioden</a>
+<br>
+<br>
 
 <?php
 session_start ();
@@ -18,10 +24,10 @@ class Wahlperiode {
 	}
 	public function tell() {
 		echo '<tr>
-				<th scope="row">' . $this->wid . '</th>
+				<td scope="row">' . $this->wid . '</th>
 				<td>' . $this->von . '</td>
 				<td>' . $this->bis . '</td>
-				<td>edit</td>
+				<td><a href="editWahlperiode.php?wid=' . $this->wid . '">edit</a></td>
 			</tr>';
 	}
 }
@@ -40,7 +46,7 @@ if (isset ( $_SESSION [$userId] )) {
 	$STH = $conn->prepare ( $query );
 	
 	$STH->execute ();
-	echo '<table class="table table-striped">
+	echo '<table id="wahlperiodeTable" class="table table-striped table-hover">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -51,10 +57,24 @@ if (isset ( $_SESSION [$userId] )) {
 		</thead>
 		<tbody>';
 	$STH->setFetchMode ( PDO::FETCH_CLASS, 'Wahlperiode' );
-	while (($STH->fetch(PDO::FETCH_CLASS)) !== false) {
+	while ( ($STH->fetch ( PDO::FETCH_CLASS )) !== false ) {
 		$gremium = $STH->fetch ();
 	}
 	echo '</tbody>
 	</table>';
 }
 ?>
+
+<script>
+$(document).ready(function() {
+
+    $('#wahlperiodeTable tr').click(function() {
+        var href = $(this).find("a").attr("href");
+        if(href) {
+            window.location = href;
+        }
+    });
+
+});
+</script>
+

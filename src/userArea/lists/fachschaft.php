@@ -1,9 +1,15 @@
+<style>
+#fachschaftTable td:hover {
+	cursor: pointer;
+}
+</style>
+
 <h2 class="sub-header">Liste aller Fachschaften</h2>
-<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Fachschaft
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/fachschaftForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Fachschaft
 	hinzufügen</a>
 <br>
-<a href="#"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
-	aller Gremien</a>
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/fachschaft.php');"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Fachschaften</a>
 <br>
 <br>
 
@@ -17,9 +23,9 @@ class Fachschaft {
 	}
 	public function tell() {
 		echo '<tr>
-				<th scope="row">' . $this->fid . '</th>
+				<td scope="row">' . $this->fid . '</th>
 				<td>' . $this->name . '</td>
-				<td>edit</td>
+				<td><a href="editFachschaft.php?fid=' . $this->fid . '">edit</a></td>
 			</tr>';
 	}
 }
@@ -38,7 +44,7 @@ if (isset ( $_SESSION [$userId] )) {
 	$STH = $conn->prepare ( $query );
 	
 	$STH->execute ();
-	echo '<table class="table table-striped">
+	echo '<table id="fachschaftTable" class="table table-striped table-hover">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -55,3 +61,16 @@ if (isset ( $_SESSION [$userId] )) {
 	</table>';
 }
 ?>
+
+<script>
+$(document).ready(function() {
+
+    $('#fachschaftTable tr').click(function() {
+        var href = $(this).find("a").attr("href");
+        if(href) {
+            window.location = href;
+        }
+    });
+
+});
+</script>

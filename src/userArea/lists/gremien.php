@@ -1,11 +1,17 @@
+<style>
+#gremiumTable td:hover {
+	cursor: pointer;
+}
+</style>
 
 <h2 class="sub-header">Liste aller Gremien</h2>
-<a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Gremium
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/gremienForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Gremium
 	hinzufügen</a>
 <br>
-	<a href="#"><span class="glyphicon glyphicon-th-list"
-		aria-hidden="true">&nbsp;</span>Liste aller Gremien</a>
-	<br><br>
+<a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/lists/gremien.php');"><span class="glyphicon glyphicon-th-list" aria-hidden="true">&nbsp;</span>Liste
+	aller Gremien</a>
+<br>
+<br>
 
 <?php
 session_start ();
@@ -18,10 +24,10 @@ class Gremium {
 	}
 	public function tell() {
 		echo '<tr>
-				<th scope="row">' . $this->gid . '</th>
+				<td scope="row">' . $this->gid . '</th>
 				<td>' . $this->name . '</td>
 				<td>' . $this->beschreibung . '</td>
-				<td>edit</td>
+				<td><a href="editGremium.php?gid=' . $this->gid . '">edit</a></td>
 			</tr>';
 	}
 }
@@ -40,7 +46,7 @@ if (isset ( $_SESSION [$userId] )) {
 	$STH = $conn->prepare ( $query );
 	
 	$STH->execute ();
-	echo '<table class="table table-striped">
+	echo '<table id="gremiumTable" class="table table-striped table-hover">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -51,10 +57,23 @@ if (isset ( $_SESSION [$userId] )) {
 		</thead>
 		<tbody>';
 	$STH->setFetchMode ( PDO::FETCH_CLASS, 'Gremium' );
-	while (($STH->fetch(PDO::FETCH_CLASS)) !== false) {
+	while ( ($STH->fetch ( PDO::FETCH_CLASS )) !== false ) {
 		$gremium = $STH->fetch ();
 	}
 	echo '</tbody>
 	</table>';
 }
 ?>
+
+<script>
+$(document).ready(function() {
+
+    $('#gremiumTable tr').click(function() {
+        var href = $(this).find("a").attr("href");
+        if(href) {
+            window.location = href;
+        }
+    });
+
+});
+</script>
