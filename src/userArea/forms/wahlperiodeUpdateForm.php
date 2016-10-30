@@ -1,3 +1,26 @@
+<script>$(document).ready(function () {
+    $('.ajaxForm').on('submit', function(e) {
+        e.preventDefault();
+        console.log("catched submit");
+        $.ajax({
+            url : $(this).attr('action') || window.location.pathname,
+            type: "POST",
+            data: $(this).serialize(),
+            success: function (data) {
+                $("#result").html(data);
+                if($("div").hasClass("alert-success")){
+                	setTimeout(function(){ 
+                    	var urlString = "/praxisprojekt_dbwt/src/userArea/lists/wahlperiode.php";
+        				$("#right-top").load(urlString);
+        			 }, 2500);
+                }
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+});</script>
 <h2 class="sub-header">Wahlperiode editieren</h2>
 <a href="#" onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/wahlperiodeForm.php');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Wahlperiode
 	hinzufügen</a>
@@ -38,7 +61,7 @@ if (isset ( $_SESSION [$userId] )) {
 <div id="formContainer" style="width: 45%;">
 	<form
 		action="/praxisprojekt_dbwt/src/formActions/addWahlperiode.php?wid=<?php echo $_GET ['wid']; ?>"
-		method="post" class="form">
+		method="post" class="form ajaxForm">
 		<label for="von">von</label> <input type="text" id="von" name="von"
 			class="datepickers" value="<?php echo $wahlperiode[1]; ?>">
 		<!--  -->
@@ -47,7 +70,7 @@ if (isset ( $_SESSION [$userId] )) {
 		<!--  --><br><br>
 		<button class="btn btn-lg btn-primary btn-block submitForm"
 			type="submit">&nbsp;&nbsp;ändern</button>
-	</form>
+	</form><br><div id="result" style="width:600px;"></div>
 </div>
 
 <link rel="stylesheet"

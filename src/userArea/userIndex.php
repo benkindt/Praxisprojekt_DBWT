@@ -25,18 +25,44 @@ session_start ();
 
 <?php
 $userId = "userIdabcd135";
+				if (isset ( $_SESSION [$userId] )) {
+					$host = "localhost";
+					$db = "dbwt";
+					$dbuser = "dbuser";
+					$dbpass = "test1342";
+					
+					$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
+					
+					$query = "SELECT admin as bool FROM users WHERE email = ?;";
+	$STH = $conn->prepare ( $query );
+	$STH->bindParam ( 1, $_SESSION [$userId]);
+	$STH->execute ();
+	$result = $STH->fetch ( PDO::FETCH_ASSOC );
+	// check if user already exists
+	if ($result ["bool"] == 1) {
+		$_SESSION ["admin"] = "Admin";
+	}
 // in order to have a cleaner index-backend the main parts are loaded with jquery load()-function
 // later content will be loaded to the right-top-div, this is again done with jquery load()-function
 // this results in no real page reloads as only right-top-div is changed
 // the sidebar and navbar will always remain untouched, see sidebar.html for more details on implementation
-if (isset ( $_SESSION [$userId] )) {
-	echo '<script>
+	if (isset ( $_SESSION ["admin"] )) {
+			echo '<script>
     $(function(){
       $("#navbar").load("/praxisprojekt_dbwt/src/userArea/baseComponents/navbar.php");
       $("#sidebar").load("/praxisprojekt_dbwt/src/userArea/baseComponents/sidebar.html");
       $("#right-top").load("/praxisprojekt_dbwt/src/userArea/overview.php");
     });
     </script>';
+	} else {
+			echo '<script>
+    $(function(){
+      $("#navbar").load("/praxisprojekt_dbwt/src/userArea/baseComponents/navbar.php");
+      $("#sidebar").load("/praxisprojekt_dbwt/src/userArea/baseComponents/sidebar2.html");
+      $("#right-top").load("/praxisprojekt_dbwt/src/userArea/overview.php");
+    });
+    </script>';
+		}
 } else {
 	// user is not logged in and redirected to login-page
 	header ( "Location: /praxisprojekt_dbwt/src/index.html" );

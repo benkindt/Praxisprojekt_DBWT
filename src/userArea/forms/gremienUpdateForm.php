@@ -1,3 +1,26 @@
+<script>$(document).ready(function () {
+    $('.ajaxForm').on('submit', function(e) {
+        e.preventDefault();
+        console.log("catched submit");
+        $.ajax({
+            url : $(this).attr('action') || window.location.pathname,
+            type: "POST",
+            data: $(this).serialize(),
+            success: function (data) {
+            	$("#result").html(data);
+            	if($("div").hasClass("alert-success")){
+                	setTimeout(function(){ 
+                    	var urlString = "/praxisprojekt_dbwt/src/userArea/lists/gremien.php";
+        				$("#right-top").load(urlString);
+        			 }, 2500);
+                }
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+});</script>
 
 <h2 class="sub-header">Gremium editieren</h2>
 <a href="#"
@@ -40,7 +63,7 @@ if (isset ( $_SESSION [$userId] )) {
 <div id="formContainer" style="width: 45%;">
 	<form
 		action="/praxisprojekt_dbwt/src/formActions/addGremium.php?gid=<?php echo $_GET ['gid']; ?>"
-		method="post" class="form">
+		method="post" class="form ajaxForm">
 		<label for="name">Name</label> <input type="text" id="name"
 			name="name" class="form-control" placeholder="Name" required
 			autofocus value="<?php echo $gremium[1]; ?>">
@@ -51,5 +74,5 @@ if (isset ( $_SESSION [$userId] )) {
 		<!--  --><br>
 		<button class="btn btn-lg btn-primary btn-block submitForm"
 			type="submit">&nbsp;&nbsp;anlegen</button>
-	</form>
+	</form><br><div id="result" style="width:600px;"></div>
 </div>

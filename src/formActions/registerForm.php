@@ -16,7 +16,17 @@ if (isset ( $_SESSION [$userId] )) {
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	
 	// user=' + $user + ';password=' + $pass + ';');
-	$query = "INSERT INTO users (email, password, admin) VALUES (?, crypt(?, gen_salt('md5')), true);";
+	if(isset($_POST['adminCheckbox']) &&
+			$_POST['adminCheckbox'] == 'Yes')
+	{
+		$query = "INSERT INTO users (email, password, admin) VALUES (?, crypt(?, gen_salt('md5')), true);";
+		$_SESSION ["admin"] = "Admin";
+	}
+	else
+	{
+		$query = "INSERT INTO users (email, password, admin) VALUES (?, crypt(?, gen_salt('md5')), false);";
+	}
+	
 	$STH = $conn->prepare ( $query );
 	
 	$STH->bindParam ( 1, $email );
@@ -25,8 +35,6 @@ if (isset ( $_SESSION [$userId] )) {
 	// check if user already exists
 	if ($result) {
 		$_SESSION [$userId] = $email;
-		// TODO check if admin or not
-		$_SESSION ["admin"] = "Admin";
 		header ( "Location: ../userArea/userIndex.php" );
 		exit ();
 	} else {

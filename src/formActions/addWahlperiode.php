@@ -1,6 +1,7 @@
 <?php
 session_start ();
 $userId = "userIdabcd135";
+echo "<div class='hidden'>";
 if (isset ( $_SESSION [$userId] )) {
 	$host = "localhost";
 	$db = "dbwt";
@@ -22,12 +23,11 @@ if (isset ( $_SESSION [$userId] )) {
 	$STH->bindParam ( 1, $von );
 	$STH->bindParam ( 2, $bis );
 	$result = $STH->execute ();
+	echo "</div>";
 	if ($result) {
-		echo $query;
-		echo "<br>Success!";
+		echo "<div class='alert alert-success' style='display:inline !important;'>Erfolgreich! Weiterleitung...</div>";
 	} else {
-		echo $query;
-		echo "<br>FAILED!";
+		echo "<div class='alert alert-warning' style='display:inline !important;'>Gescheitert!</div>";
 	}
 }
 

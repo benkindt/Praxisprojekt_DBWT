@@ -26,8 +26,6 @@ if (isset ( $_SESSION [$userId] )) {
 	// check if user already exists
 	if ($result ["bool"] == 1) {
 		$_SESSION [$userId] = $result ["email"];
-		// TODO check if admin or not
-		$_SESSION ["admin"] = "Admin";
 		header ( "Location: ../userArea/userIndex.php" );
 		exit ();
 	} else {

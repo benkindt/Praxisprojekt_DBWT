@@ -1,3 +1,27 @@
+<script>$(document).ready(function () {
+    $('.ajaxForm').on('submit', function(e) {
+        e.preventDefault();
+        console.log("catched submit");
+        $.ajax({
+            url : $(this).attr('action') || window.location.pathname,
+            type: "POST",
+            data: $(this).serialize(),
+            success: function (data) {
+            	$("#result").html(data);
+            	if($("div").hasClass("alert-success")){
+                	setTimeout(function(){ 
+                    	var urlString = "/praxisprojekt_dbwt/src/userArea/lists/person.php";
+        				$("#right-top").load(urlString);
+        			 }, 2500);
+                }
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+});</script>
+
 <h2 class="sub-header">Person editieren</h2>
 <a href="#"
 	onclick="$('#right-top').load('/praxisprojekt_dbwt/src/userArea/forms/personForm.php');"><span
@@ -37,7 +61,7 @@ if (isset ( $_SESSION [$userId] )) {
 ?>
 <div id="formContainer" style="width: 45%;">
 	<form action="/praxisprojekt_dbwt/src/formActions/addPerson.php?pid=<?php echo $_GET ['pid']; ?>"
-		method="post" class="form">
+		method="post" class="form ajaxForm">
 		<label for="inputEmail">Vorname</label> <input type="text"
 			id="vorname" name="vorname" class="form-control"
 			placeholder="Vorname" required autofocus value="<?php echo $person[1]; ?>">
@@ -56,7 +80,7 @@ if (isset ( $_SESSION [$userId] )) {
 		<!--  --><br><br>
 		<button class="btn btn-lg btn-primary btn-block submitForm"
 			type="submit">&nbsp;&nbsp;ändern</button>
-	</form>
+	</form><br><div id="result" style="width:600px;"></div>
 </div>
 
 <!-- <p> -->

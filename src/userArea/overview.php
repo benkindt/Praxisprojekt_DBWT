@@ -4,20 +4,21 @@
 			var dataValue = $(this).attr("data-value");
 			if(!!dataValue){
 				var urlString = "/praxisprojekt_dbwt/src/userArea/lists/" + dataValue;
-				$("#right-top").load(urlString); onclick="loadList('gremien.php')"
+				$("#right-top").load(urlString);
 			}
 			$("li").removeClass("active");
 			$(this).addClass("active");
 		});
 	});
 </script>
+
 <h2 class="sub-header">Übersicht</h2>
 <?php echo ""; ?>
 <br><h5>
 Die Weboberfläche bietet die Möglichkeit
 zum Anzeigen, Erstellen und Editieren von:
 </h5>
-<ul>
+<ul id="overview">
 	<li data-value="person"><a href="#">Personen</a></li>
 	<li data-value="gremien"><a href="#">Gremien</a></li>
 	<li data-value="fachschaft"><a href="#">Fachschaften</a></li>
