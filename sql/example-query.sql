@@ -1,0 +1,1 @@
+﻿SELECT * FROM person, gremiumsmitglied, gremium WHERE gremiumsmitglied.pid = person.pid AND person.pid = 54;
