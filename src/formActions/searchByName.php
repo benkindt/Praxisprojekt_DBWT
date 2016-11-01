@@ -28,22 +28,25 @@ if (isset ( $_SESSION [$userId] )) {
 	if ($vorname != "") {
 		if ($nachname != "") {
 			// beides eingegeben
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
+			// $query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid AND gremium.gid = gremiumsmitglied.gid ORDER BY person.pid;";
+			$query = "SELECT DISTINCT ON (gremiumsmitglied.gmid) person.pid, person.vorname, person.nachname, gremiumsmitglied.gmid, gremium.name, gremiumsmitglied.nachruecker, gremiumsmitglied.von as gvon, gremiumsmitglied.bis as gbis, gremiumsmitglied.grund, wahlperiode.von as wvon, wahlperiode.bis as wbis, fachschaft.name as fname FROM person, gremiumsmitglied, gremium, fachschaft, fachschaftsmitglied, wahlperiode WHERE person.pid IN (SELECT DISTINCT person.pid FROM person WHERE vorname = '" . $vorname . "' AND nachname = '" . $nachname . "') AND fachschaftsmitglied.fid = fachschaft.fid AND person.pid = fachschaftsmitglied.pid AND person.pid = gremiumsmitglied.pid AND gremium.gid = gremiumsmitglied.gid ORDER BY gremiumsmitglied.gmid;";
 		} else {
 			// nur Vorname
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
+			// $query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND person.pid = gremiumsmitglied.pid AND gremium.gid = gremiumsmitglied.gid ORDER BY person.pid;";
+			$query = "SELECT DISTINCT ON (gremiumsmitglied.gmid) person.pid, person.vorname, person.nachname, gremiumsmitglied.gmid, gremium.name, gremiumsmitglied.nachruecker, gremiumsmitglied.von as gvon, gremiumsmitglied.bis as gbis, gremiumsmitglied.grund, wahlperiode.von as wvon, wahlperiode.bis as wbis, fachschaft.name as fname FROM person, gremiumsmitglied, gremium, fachschaft, fachschaftsmitglied, wahlperiode WHERE person.pid IN (SELECT DISTINCT person.pid FROM person WHERE vorname = '" . $vorname . "') AND fachschaftsmitglied.fid = fachschaft.fid AND person.pid = fachschaftsmitglied.pid AND person.pid = gremiumsmitglied.pid AND gremium.gid = gremiumsmitglied.gid ORDER BY gremiumsmitglied.gmid;";
 		}
 	} else {
 		if ($nachname != "") {
 			// nur Nachname
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
+			// $query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid AND gremium.gid = gremiumsmitglied.gid ORDER BY person.pid;";
+			$query = "SELECT DISTINCT ON (gremiumsmitglied.gmid) person.pid, person.vorname, person.nachname, gremiumsmitglied.gmid, gremium.name, gremiumsmitglied.nachruecker, gremiumsmitglied.von as gvon, gremiumsmitglied.bis as gbis, gremiumsmitglied.grund, wahlperiode.von as wvon, wahlperiode.bis as wbis, fachschaft.name as fname FROM person, gremiumsmitglied, gremium, fachschaft, fachschaftsmitglied, wahlperiode WHERE person.pid IN (SELECT DISTINCT person.pid FROM person WHERE nachname = '" . $nachname . "') AND fachschaftsmitglied.fid = fachschaft.fid AND person.pid = fachschaftsmitglied.pid AND person.pid = gremiumsmitglied.pid AND gremium.gid = gremiumsmitglied.gid ORDER BY gremiumsmitglied.gmid;";
 		} else {
 			// keine Eingabe erfolgt
 		}
 	}
 	$STH = $conn->prepare ( $query );
 	
-	echo $query;
+// 	echo $query;
 	$STH->execute ();
 	echo '<div class="container">
 		<div class="panel-group" id="accordion" style="width: 420px;">';
@@ -51,13 +54,14 @@ if (isset ( $_SESSION [$userId] )) {
 	while ( ($result = $STH->fetch ( PDO::FETCH_ASSOC )) !== false ) {
 		$newName = $result ["vorname"] . $result ["nachname"];
 		$isNachruecker = $result ["nachruecker"] ? 'Ja' : 'Nein';
-		if($newName == $lastName){
-			echo '<ul style="margin-top:5px;"><b>' . $result ["von"] . ' - ' . $result ["bis"] . '</b></ul>Gremium: ' . $result ["name"] . ' <br>';
-			echo 'Nachrücker: ' . $isNachruecker . ' <br> Mitglied von ... bis ... <br> Bemerkung:' . $result ["grund"] . '<br>';
+		if ($newName == $lastName) {
+			echo '<ul style="margin-top:5px;"><b>' . $result ["wvon"] . ' - ' . $result ["wbis"] . '</b> </ul>Gremium: ' . $result ["name"] . ' <br>';
+			echo 'Fachschaft: ' . $result ["fname"] . '<br>';
+			echo 'Nachrücker: ' . $isNachruecker . ' <br> Mitglied von ' . $result ["gvon"] . ' bis ' . $result ["gbis"] . ' <br> Bemerkung: ' . $result ["grund"] . '<br>';
 			// insert into existing accordion tab
 		} else {
 			// if name changed end the last accordion tab
-			if($lastName != '43noname134593'){
+			if ($lastName != '43noname134593') {
 				echo '</div>
 				</div>
 				</div>';
@@ -73,8 +77,9 @@ if (isset ( $_SESSION [$userId] )) {
 				<div id="collapse' . $result ["pid"] . '" class="panel-collapse collapse">
 				<div class="panel-body">
 				<!-- body -->';
-			echo '<ul style="margin-top:5px;"><b>' . $result ["von"] . ' - ' . $result ["bis"] . '</b> </ul>Gremium: ' . $result ["name"] . ' <br>';
-			echo 'Nachrücker: ' . $isNachruecker . ' <br> Mitglied von ... bis ... <br> Bemerkung:' . $result ["grund"] . '<br>';
+			echo '<ul style="margin-top:5px;"><b>' . $result ["wvon"] . ' - ' . $result ["wbis"] . '</b> </ul>Gremium: ' . $result ["name"] . ' <br>';
+			echo 'Fachschaft: ' . $result ["fname"] . '<br>';
+			echo 'Nachrücker: ' . $isNachruecker . ' <br> Mitglied von ' . $result ["gvon"] . ' bis ' . $result ["gbis"] . ' <br> Bemerkung: ' . $result ["grund"] . '<br>';
 		}
 		$lastName = $newName;
 	}

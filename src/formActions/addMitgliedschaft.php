@@ -40,6 +40,9 @@ if (isset ( $_SESSION [$userId] )) {
 	// get gid
 	$gid = $_POST ['gremium'];
 	// echo "" . $gid . " ";
+	// get fid
+	$fid = $_POST ['fachschaft'];
+	// echo "" . $fid . " ";
 	// get von
 	$von = $_POST ['von'];
 	echo "" . $von . " ";
@@ -76,7 +79,27 @@ if (isset ( $_SESSION [$userId] )) {
 	$STH->bindParam ( 7, $grund );
 	
 	$result = $STH->execute ();
-	// echo "</div>";
+	
+	echo $query;
+	echo $pid;
+	if ($result) {
+		echo "1";
+	} else {
+		echo "0";
+	}
+	
+	$query = "INSERT INTO fachschaftsmitglied (pid, wid, fid, von, bis) VALUES (?, ?, ?, ?, ?);";
+	
+	$STH = $conn->prepare ( $query );
+	
+	$STH->bindParam ( 1, $pid );
+	$STH->bindParam ( 2, $wid );
+	$STH->bindParam ( 3, $fid );
+	$STH->bindParam ( 4, $von );
+	$STH->bindParam ( 5, $bis );
+	
+	$result = $STH->execute ();
+
 	echo $query;
 	echo $pid;
 	if ($result) {
