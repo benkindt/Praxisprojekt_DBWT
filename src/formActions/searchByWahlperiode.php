@@ -20,27 +20,11 @@ if (isset ( $_SESSION [$userId] )) {
 	$dbuser = "dbuser";
 	$dbpass = "test1342";
 	
-	$vorname = $_POST ["vorname"];
-	$nachname = $_POST ["nachname"];
+	$wahlperiode = $_POST ["wahlperiode"];
 	
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	
-	if ($vorname != "") {
-		if ($nachname != "") {
-			// beides eingegeben
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
-		} else {
-			// nur Vorname
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
-		}
-	} else {
-		if ($nachname != "") {
-			// nur Nachname
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
-		} else {
-			// keine Eingabe erfolgt
-		}
-	}
+	$query = "SELECT * FROM person, gremiumsmitglied, gremium, wahlperiode WHERE person.pid IN (SELECT DISTINCT person.pid FROM person, gremiumsmitglied, gremium, wahlperiode WHERE wahlperiode.wid = '" . $wahlperiode . "') AND gremiumsmitglied.wid = wahlperiode.wid AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
 	$STH = $conn->prepare ( $query );
 	
 	echo $query;
@@ -51,13 +35,13 @@ if (isset ( $_SESSION [$userId] )) {
 	while ( ($result = $STH->fetch ( PDO::FETCH_ASSOC )) !== false ) {
 		$newName = $result ["vorname"] . $result ["nachname"];
 		$isNachruecker = $result ["nachruecker"] ? 'Ja' : 'Nein';
-		if($newName == $lastName){
+		if ($newName == $lastName) {
 			echo '<ul style="margin-top:5px;"><b>' . $result ["von"] . ' - ' . $result ["bis"] . '</b></ul>Gremium: ' . $result ["name"] . ' <br>';
 			echo 'Nachrücker: ' . $isNachruecker . ' <br> Mitglied von ... bis ... <br> Bemerkung:' . $result ["grund"] . '<br>';
 			// insert into existing accordion tab
 		} else {
 			// if name changed end the last accordion tab
-			if($lastName != '43noname134593'){
+			if ($lastName != '43noname134593') {
 				echo '</div>
 				</div>
 				</div>';

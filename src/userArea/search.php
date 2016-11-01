@@ -59,7 +59,7 @@
 				</div>
 				<div id="collapse2" class="panel-collapse collapse">
 					<div class="panel-body">
-						<form action="../formActions/searchForm.php" method="post"
+						<form action="../formActions/searchByWahlperiode.php" method="post"
 							class="form-signin searchButton" style="width: 65%;">
 							<select name="wahlperiode">
 								<option selected disabled hidden style='display: none' value=''></option>
@@ -118,7 +118,7 @@
 				</div>
 				<div id="collapse3" class="panel-collapse collapse">
 					<div class="panel-body">
-						<form action="formActions/searchForm.php" method="post"
+						<form action="../formActions/searchByGremium.php" method="post"
 							class="form-signin searchButton" style="width: 65%;">
 							<select name="gremium">
 								<option selected disabled hidden style='display: none' value=''></option>
@@ -176,7 +176,7 @@
 				</div>
 				<div id="collapse4" class="panel-collapse collapse">
 					<div class="panel-body">
-						<form action="formActions/searchForm.php" method="post"
+						<form action="../formActions/searchByFachschaft.php" method="post"
 							class="form-signin searchButton" style="width: 65%;">
 							<select name="fachschaft">
 								<option selected disabled hidden style='display: none'

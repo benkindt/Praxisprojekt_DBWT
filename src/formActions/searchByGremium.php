@@ -20,27 +20,11 @@ if (isset ( $_SESSION [$userId] )) {
 	$dbuser = "dbuser";
 	$dbpass = "test1342";
 	
-	$vorname = $_POST ["vorname"];
-	$nachname = $_POST ["nachname"];
+	$gremium = $_POST ["gremium"];
 	
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	
-	if ($vorname != "") {
-		if ($nachname != "") {
-			// beides eingegeben
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
-		} else {
-			// nur Vorname
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE vorname = '" . $vorname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
-		}
-	} else {
-		if ($nachname != "") {
-			// nur Nachname
-			$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE nachname = '" . $nachname . "' AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
-		} else {
-			// keine Eingabe erfolgt
-		}
-	}
+	$query = "SELECT * FROM person, gremiumsmitglied, gremium WHERE person.pid IN (SELECT DISTINCT person.pid FROM person, gremiumsmitglied, gremium WHERE gremium.gid = '" . $gremium . "') AND person.pid = gremiumsmitglied.pid ORDER BY person.pid;";
 	$STH = $conn->prepare ( $query );
 	
 	echo $query;
