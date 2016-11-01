@@ -1,7 +1,7 @@
 <?php
 session_start ();
 $userId = "userIdabcd135";
-echo "<div class='hidden'>";
+// echo "<div class='hidden'>";
 if (isset ( $_SESSION [$userId] )) {
 	$host = "localhost";
 	$db = "dbwt";
@@ -18,7 +18,7 @@ if (isset ( $_SESSION [$userId] )) {
 	if (isset ( $_POST ["nutzerkennzeichen"] )) {
 		$nkz = $_POST ["nutzerkennzeichen"];
 	}
-	echo $vorname . " abc <br>" . $nachname . "<br> " . $matrikel . "<br> " . $nkz . "<br> ";
+// 	echo $vorname . " abc <br>" . $nachname . "<br> " . $matrikel . "<br> " . $nkz . "<br> ";
 	
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	if (isset ( $_GET ['pid'] )) {
@@ -55,12 +55,12 @@ if (isset ( $_SESSION [$userId] )) {
 		}
 	}
 	$result = $STH->execute ();
-	echo "</div>";
+// 	echo "</div>";
 	echo $query;
 	if ($result) {
-		echo "<div class='alert alert-success' style='display:inline !important;'>Erfolgreich! Weiterleitung...</div>";
+		echo "1";
 	} else {
-		echo "<div class='alert alert-warning' style='display:inline !important;'>Gescheitert!</div>";
+		echo "0";
 	}
 }
 

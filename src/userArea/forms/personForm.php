@@ -11,34 +11,67 @@ function neueMitgliedschaft(count){
 }
 $(document).ready(function () {
 	var personCount = 1;
+	var persons = 0;
     $("#addOnePerson").on("click", function(e) {
     	personCount++;
 		$('<div class="panel panel-default"> <div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapse' + personCount + '">Neue Person ' + personCount + '</a> </h4> </div> <div id="collapse' + personCount + '" class="panel-collapse collapse"> <div class="panel-body"><form id="personForm' + personCount + '" action="/praxisprojekt_dbwt/src/formActions/addPerson.php" method="post" class="form ajaxForm personForms"> <div class"personCount" style="display:none;">' + personCount + '</div><label for="inputEmail">Vorname</label> <input type="text" id="vorname" name="vorname" class="form-control" placeholder="Vorname" required autofocus> <label for="inputPassword">Nachname</label> <input type="text" id="nachname" name="nachname" class="form-control" placeholder="Nachname" required> <label for="inputPassword">Nutzerkennzeichen</label> <input type="text" id="nutzerkennzeichen" name="nutzerkennzeichen" class="form-control" placeholder="Nutzerkennzeichen"> <label for="inputPassword">Matrikelnummer</label> <input type="text" id="matrikelnummer" name="matrikelnummer" class="form-control" placeholder="Matrikelnummer"> </form><br> <a href="#" onclick="neueMitgliedschaft(' + personCount + ');"><span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Mitgliedschaft hinzufügen</a><div id="neueMitgliedschaften' + personCount + '"></div></div></div>').insertBefore("#additionalPersons");
+		// persons-int is subtracted from pid in php-scripts
+		persons++;
+		$("input .personCount").val(personCount);
 	    });
+    
     $("#addToDatabaseButton").on("click", function(e) {
-        $(".ajaxForm").each(function( index2 ) {
-        	e.preventDefault();
-            console.log("catched submit");
-            $.ajax({
-                url : $(this).attr('action') || window.location.pathname,
-                type: "POST",
-                data: $(this).serialize(),
-                success: function (data) {
-                	$("#result").html(data);
-                	if($("div").hasClass("alert-success")){
-//                     	setTimeout(function(){
-//                         	var urlString = "/praxisprojekt_dbwt/src/userArea/lists/person.php";
-//             				$("#right-top").load(urlString);
-//             			 }, 2500);
-                    }
-                },
-                error: function (jXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
+        var missingInput = false;
+        var personTotalCount = 0;
+        var mitgliedTotalCount = 0;
+        var personSuccessCount = 0;
+        var mitgliedSuccessCount = 0;
+        
+        $("#result").html("");
+        $("input").each(function(){
+            console.log("input found");
+            if( !$(this).val() ) {
+                  $(this).css("background-color","#FF9C9C");
+                  missingInput = true;
+            } else {
+            	$(this).css("background-color","#FFFFFF");
+            }
         });
-        setTimeout(function(){
-        	$(".mitgliedForm").each(function( index2 ) {
+
+        $("select[name=gremium]").each(function(){
+            console.log("gremium found");
+            console.log($(this).val());
+            if( !$(this).val() ) {
+                  $(this).css("background-color","#FF9C9C");
+                  missingInput = true;
+            } else {
+            	$(this).css("background-color","#FFFFFF");
+            }
+        });
+
+        $("select[name=fachschaft]").each(function(){
+            console.log("fachschaft found");
+            console.log($(this).val());
+            if( !$(this).val() ) {
+                  $(this).css("background-color","#FF9C9C");
+                  missingInput = true;
+            } else {
+            	$(this).css("background-color","#FFFFFF");
+            }
+        });
+
+        $("select[name=wahlperiode]").each(function(){
+            console.log("wahlperiode found");
+            console.log($(this).val());
+            if( !$(this).val() ) {
+                  $(this).css("background-color","#FF9C9C");
+                  missingInput = true;
+            } else {
+            	$(this).css("background-color","#FFFFFF");
+            }
+        });
+        if(!missingInput){
+        	$(".ajaxForm").each(function( index2 ) {
             	e.preventDefault();
                 console.log("catched submit");
                 $.ajax({
@@ -46,20 +79,53 @@ $(document).ready(function () {
                     type: "POST",
                     data: $(this).serialize(),
                     success: function (data) {
-                    	$("#result").html(data);
-                    	if($("div").hasClass("alert-success")){
-//                         	setTimeout(function(){
-//                             	var urlString = "/praxisprojekt_dbwt/src/userArea/lists/person.php";
-//                 				$("#right-top").load(urlString);
-//                 			 }, 2500);
+                    	personTotalCount++;
+                    	console.log(data);
+                    	if(data === "1"){
+                    		console.log("person success!");
+                        	personSuccessCount++;	
+                        }else {
+                            console.log("error person");
                         }
+//                     	$("#result").html(data);
                     },
                     error: function (jXHR, textStatus, errorThrown) {
                         alert(errorThrown);
                     }
                 });
             });
-			 }, 1500);
+            setTimeout(function(){
+            	$(".mitgliedForm").each(function( index2 ) {
+                	e.preventDefault();
+                    console.log("catched submit");
+                    $.ajax({
+                        url : $(this).attr('action') || window.location.pathname,
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function (data) {
+                        	mitgliedTotalCount++;
+                        	console.log(data);
+                        	if(data === "1"){
+                            	console.log("mitglied success!");
+                        		mitgliedSuccessCount++;
+                            } else {
+                                console.log("error mitglied");
+                               }
+//                         	$("#result").html(data);
+                        },
+                        error: function (jXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                });
+    			 }, 700);
+            } else {
+            	$("#result").html('<div class="alert alert-danger" role="alert">Fehlende Eingabefelder</div>');
+            }
+        setTimeout(function(){
+        	// print out result
+    		$("#result").append('<div class="alert alert-info" role="alert">' + mitgliedSuccessCount + ' von ' + mitgliedTotalCount +' Mitgliedschaften erzeugt<br>' + personSuccessCount + ' von ' + personTotalCount +' Personen erzeugt</div>');
+        }, 900);
     });
 });
 </script>
@@ -110,9 +176,7 @@ $(document).ready(function () {
 								class="form-control" placeholder="Matrikelnummer">
 							<!--  -->
 						</form>
-						<br> <a href="#" onclick="neueMitgliedschaft('');"><span
-							class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Mitgliedschaft
-							hinzufügen</a>
+						
 						<div id="mitgliedschaft">
 							<form
 								action="/praxisprojekt_dbwt/src/formActions/addMitgliedschaft.php"
@@ -242,10 +306,17 @@ $(document).ready(function () {
 									type="text" id="bis" name="bis" class="datepickers"><br> <input
 									id="nachrueckerCheckbox" name="nachrueckerCheckbox"
 									type="checkbox" value="Yes"> Nachrücker <br> Bemerkung:<br> <input
-									type="text" id="bemerkung" name="bemerkung">
+									type="text" id="bemerkung" name="bemerkung" value="keine">
 							</form>
 						</div>
 						<div id="neueMitgliedschaften"></div>
+						<br> <a href="#" onclick="neueMitgliedschaft('');"><span
+							class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Mitgliedschaft
+							hinzufügen</a>
+						<br> <a href="#" onclick=""><span
+							class="glyphicon glyphicon-minus" aria-hidden="true">&nbsp;</span>Letzte Mitgliedschaft entfernen</a>
+						<br> <a href="#" onclick=""><span
+							class="glyphicon glyphicon-minus" aria-hidden="true">&nbsp;</span>Diese Person entfernen</a>
 					</div>
 				</div>
 			</div>

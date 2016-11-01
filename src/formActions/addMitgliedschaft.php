@@ -15,47 +15,47 @@ if (isset ( $_SESSION [$userId] )) {
 		$db = "dbwt";
 		$dbuser = "dbuser";
 		$dbpass = "test1342";
-	
+		
 		$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
-	
+		
 		// user=' + $user + ';password=' + $pass + ';');
 		$query = "SELECT MAX(pid) as max FROM person;";
 		$STH = $conn->prepare ( $query );
-	
+		
 		$STH->execute ();
 		$result = $STH->fetch ( PDO::FETCH_ASSOC );
-		if ( ($result ["max"])) {
+		if (($result ["max"])) {
+			echo "result: " . $result["max"];
+			echo "personCOunt: " . $personCount;
 			$pid = $result ["max"] + $personCount;
-			echo "" . $pid . " ";
+			// echo "" . $pid . " ";
 		} else {
-			echo "Error processing pid in addMitgliedschaft";
+			// echo "Error processing pid in addMitgliedschaft";
 		}
 	}
 	
 	// get wid
-	$wid = $_POST['wahlperiode'];
-	echo "" . $wid . " ";
+	$wid = $_POST ['wahlperiode'];
+	// echo "" . $wid . " ";
 	// get gid
-	$gid = $_POST['gremium'];
-	echo "" . $gid . " ";
+	$gid = $_POST ['gremium'];
+	// echo "" . $gid . " ";
 	// get von
-	$von = $_POST['von'];
+	$von = $_POST ['von'];
 	echo "" . $von . " ";
 	// get bis
-	$bis = $_POST['bis'];
-	echo "" . $bis . " ";
+	$bis = $_POST ['bis'];
+	// echo "" . $bis . " ";
 	// get nachruecker-boolean
-	if(isset($_POST['nachrueckerCheckbox']) &&
-			$_POST['nachrueckerCheckbox'] == 'Yes')
-	{
+	if (isset ( $_POST ['nachrueckerCheckbox'] ) && $_POST ['nachrueckerCheckbox'] == 'Yes') {
 		$nachruecker = "true";
 	} else {
 		$nachruecker = "false";
 	}
-	echo " nachruecker:" . $nachruecker . ": ";
+	// echo " nachruecker:" . $nachruecker . ": ";
 	// get grund
-	$grund = $_POST['bemerkung'];
-	echo "" . $grund . " ";
+	$grund = $_POST ['bemerkung'];
+	// echo "" . $grund . " ";
 	
 	$conn = new PDO ( 'pgsql:dbname=dbwt;host=localhost;user=dbuser;password=test1342' );
 	if (isset ( $_GET ['pid'] )) {
@@ -76,12 +76,19 @@ if (isset ( $_SESSION [$userId] )) {
 	$STH->bindParam ( 7, $grund );
 	
 	$result = $STH->execute ();
-// 	echo "</div>";
+	// echo "</div>";
+	echo $query;
+	echo $pid;
 	if ($result) {
-		echo "<div class='alert alert-success' style='display:inline !important;'>Erfolgreich! Weiterleitung...</div>";
+		echo "1";
 	} else {
-		echo "<div class='alert alert-warning' style='display:inline !important;'>Gescheitert!</div>";
+		echo "0";
 	}
+	// if ($result) {
+	// echo "<div class='alert alert-success' style='display:inline !important;'>Erfolgreich! Weiterleitung...</div>";
+	// } else {
+	// echo "<div class='alert alert-warning' style='display:inline !important;'>Gescheitert!</div>";
+	// }
 }
 
 ?>

@@ -32,6 +32,7 @@ class Person {
 				<td>' . $this->nutzerkennzeichen . '</td>
 				<td>' . $this->matrikelnummer . '</td>
 				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/userArea/forms/personUpdateForm.php?pid=' . $this->pid . '&#39;);" href="#">edit</a></td>
+				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/formActions/deletePerson.php?pid=' . $this->pid . '&#39;);" href="#">delete</a></td>
 			</tr>';
 	}
 }
