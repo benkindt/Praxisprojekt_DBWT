@@ -70,10 +70,18 @@ $(document).ready(function () {
             	$(this).css("background-color","#FFFFFF");
             }
         });
+        
         if(!missingInput){
+            var iter = 0;
         	$(".ajaxForm").each(function( index2 ) {
+        		console.log("catched submit");
+        		if(iter > 0){
+        			iter++;
+        			setTimeout(function(){
+            		 }, iter*150);
+            	}
+            	var thisForm = $(this);
             	e.preventDefault();
-                console.log("catched submit");
                 $.ajax({
                     url : $(this).attr('action') || window.location.pathname,
                     type: "POST",
@@ -88,37 +96,38 @@ $(document).ready(function () {
                             console.log("error person");
                         }
 //                     	$("#result").html(data);
+                    	setTimeout(function(){
+                    		thisForm.closest("div .panel-body").find(".mitgliedForm").each(function( index2 ) {
+                            	console.log("CALLED MITGLIEDFORM!!!! iter " + iter + " !!!!");
+                            	e.preventDefault();
+                                console.log("catched submit");
+                                $.ajax({
+                                    url : $(this).attr('action') || window.location.pathname,
+                                    type: "POST",
+                                    data: $(this).serialize(),
+                                    success: function (data) {
+                                    	mitgliedTotalCount++;
+                                    	console.log(data);
+                                    	if(data === "1"){
+                                        	console.log("mitglied success!");
+                                    		mitgliedSuccessCount++;
+                                        } else {
+                                            console.log("error mitglied");
+                                           }
+//                                     	$("#result").html(data);
+                                    },
+                                    error: function (jXHR, textStatus, errorThrown) {
+                                        alert(errorThrown);
+                                    }
+                                });
+                            });
+                			 }, 20);
                     },
                     error: function (jXHR, textStatus, errorThrown) {
                         alert(errorThrown);
                     }
                 });
             });
-            setTimeout(function(){
-            	$(".mitgliedForm").each(function( index2 ) {
-                	e.preventDefault();
-                    console.log("catched submit");
-                    $.ajax({
-                        url : $(this).attr('action') || window.location.pathname,
-                        type: "POST",
-                        data: $(this).serialize(),
-                        success: function (data) {
-                        	mitgliedTotalCount++;
-                        	console.log(data);
-                        	if(data === "1"){
-                            	console.log("mitglied success!");
-                        		mitgliedSuccessCount++;
-                            } else {
-                                console.log("error mitglied");
-                               }
-//                         	$("#result").html(data);
-                        },
-                        error: function (jXHR, textStatus, errorThrown) {
-                            alert(errorThrown);
-                        }
-                    });
-                });
-    			 }, 700);
             } else {
             	$("#result").html('<div class="alert alert-danger" role="alert">Fehlende Eingabefelder</div>');
             }
@@ -176,7 +185,7 @@ $(document).ready(function () {
 								class="form-control" placeholder="Matrikelnummer">
 							<!--  -->
 						</form>
-						
+
 						<div id="mitgliedschaft">
 							<form
 								action="/praxisprojekt_dbwt/src/formActions/addMitgliedschaft.php"
@@ -312,11 +321,11 @@ $(document).ready(function () {
 						<div id="neueMitgliedschaften"></div>
 						<br> <a href="#" onclick="neueMitgliedschaft('');"><span
 							class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>Mitgliedschaft
-							hinzufügen</a>
-						<br> <a href="#" onclick=""><span
-							class="glyphicon glyphicon-minus" aria-hidden="true">&nbsp;</span>Letzte Mitgliedschaft entfernen</a>
-						<br> <a href="#" onclick=""><span
-							class="glyphicon glyphicon-minus" aria-hidden="true">&nbsp;</span>Diese Person entfernen</a>
+							hinzufügen</a> <br> <a href="#" onclick=""><span
+							class="glyphicon glyphicon-minus" aria-hidden="true">&nbsp;</span>Letzte
+							Mitgliedschaft entfernen</a> <br> <a href="#" onclick=""><span
+							class="glyphicon glyphicon-minus" aria-hidden="true">&nbsp;</span>Diese
+							Person entfernen</a>
 					</div>
 				</div>
 			</div>

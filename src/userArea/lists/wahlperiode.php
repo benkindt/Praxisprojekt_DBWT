@@ -28,6 +28,7 @@ class Wahlperiode {
 				<td>' . $this->von . '</td>
 				<td>' . $this->bis . '</td>
 				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/userArea/forms/wahlperiodeUpdateForm.php?wid=' . $this->wid . '&#39);" href="#w">edit</a></td>
+				<td><a href="#">delete</a></td>
 			</tr>';
 	}
 }

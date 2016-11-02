@@ -32,6 +32,7 @@ class Gremium {
 				<td>' . $this->name . '</td>
 				<td>' . $this->beschreibung . '</td>
 				<td><a onclick="$(&#39;#right-top&#39;).load(&#39;/praxisprojekt_dbwt/src/userArea/forms/gremienUpdateForm.php?gid=' . $this->gid . '&#39;);" href="#">edit</a></td>
+				<td><a href="#">delete</a></td>
 			</tr>';
 	}
 }

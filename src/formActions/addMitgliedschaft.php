@@ -25,10 +25,8 @@ if (isset ( $_SESSION [$userId] )) {
 		$STH->execute ();
 		$result = $STH->fetch ( PDO::FETCH_ASSOC );
 		if (($result ["max"])) {
-			echo "result: " . $result["max"];
-			echo "personCOunt: " . $personCount;
-			$pid = $result ["max"] + $personCount;
-			// echo "" . $pid . " ";
+			echo "result: " . $result["max"] . " /// ";
+			$pid = $result ["max"];
 		} else {
 			// echo "Error processing pid in addMitgliedschaft";
 		}

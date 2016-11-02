@@ -56,6 +56,9 @@ if (isset ( $_SESSION [$userId] )) {
 	}
 	$result = $STH->execute ();
 // 	echo "</div>";
+	echo $vorname;
+	echo $nachname;
+	echo $nkz;
 	echo $query;
 	if ($result) {
 		echo "1";
